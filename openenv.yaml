@@ -1,0 +1,72 @@
+name: email-triage-env
+version: "1.0.0"
+description: >
+  An RL environment where an AI agent learns to triage emails —
+  classifying, prioritizing, and routing them with increasing difficulty.
+
+environment:
+  class: email_triage_env.server.email_triage_env_environment.EmailTriageEnvironment
+  max_steps: 5
+
+tasks:
+  - id: easy
+    name: Email Classification
+    description: Classify a single email as spam, important, or normal.
+    difficulty: easy
+    reward_range: [0.0, 1.0]
+
+  - id: medium
+    name: Email Prioritization
+    description: Order emails by priority — most urgent first.
+    difficulty: medium
+    reward_range: [0.0, 1.0]
+
+  - id: hard
+    name: Full Email Triage
+    description: Classify email AND decide action (reply or archive).
+    difficulty: hard
+    reward_range: [0.0, 1.0]
+
+observation_space:
+  type: object
+  fields:
+    emails:
+      type: array
+      items:
+        id: integer
+        subject: string
+        body: string
+        sender: string
+    step_count: integer
+    done: boolean
+    reward: float
+
+action_space:
+  type: object
+  fields:
+    type:
+      type: string
+      enum: [classify, prioritize, triage]
+    email_id: integer
+    label:
+      type: string
+      enum: [spam, important, normal]
+      required: false
+    order:
+      type: array
+      items: integer
+      required: false
+    action:
+      type: string
+      enum: [reply, archive]
+      required: false
+
+api:
+  reset: POST /reset
+  step: POST /step
+  state: GET /state
+
+inference:
+  script: inference.py
+  model: Qwen/Qwen2.5-72B-Instruct
+  api_base: https://router.huggingface.co/v1
