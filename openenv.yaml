@@ -6,19 +6,17 @@ description: >
 
 entry_point: "email_triage_env.server.email_triage_env_environment:EmailTriageEnvironment"
 
-# Define tasks for the automated grader
 tasks:
-  - id: "easy_classify"
+  - id: "easy"
     name: "Email Classification"
     difficulty: "easy"
-  - id: "medium_priority"
+  - id: "medium"
     name: "Email Prioritization"
     difficulty: "medium"
-  - id: "hard_triage"
+  - id: "hard"
     name: "Full Email Triage"
     difficulty: "hard"
 
-# The validator uses these to check your API compliance
 observation_space:
   type: "object"
   properties:
