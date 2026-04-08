@@ -13,8 +13,6 @@ dependencies = [
     "openai",
     "python-dotenv",
     "pydantic>=2.0.0",
-    "fastapi",
-    "uvicorn"
 ]
 
 [tool.hatch.build.targets.wheel]
