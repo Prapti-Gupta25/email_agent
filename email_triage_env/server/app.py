@@ -1,16 +1,11 @@
-import os
 import sys
-from openenv.core.env_server.http_server import create_app
-
-# Ensure local modules are findable
+import os
+# Add the root directory to path so it can find models.py
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
-try:
-    from models import EmailTriageAction, EmailTriageObservation
-    from server.email_triage_env_environment import EmailTriageEnvironment
-except ImportError:
-    from .models import EmailTriageAction, EmailTriageObservation
-    from .email_triage_env_environment import EmailTriageEnvironment
+from openenv.core.env_server.http_server import create_app
+from models import EmailTriageAction, EmailTriageObservation
+from server.email_triage_env_environment import EmailTriageEnvironment
 
 app = create_app(
     EmailTriageEnvironment,
@@ -22,6 +17,3 @@ app = create_app(
 def main():
     import uvicorn
     uvicorn.run(app, host="0.0.0.0", port=8000)
-
-if __name__ == "__main__":
-    main()
