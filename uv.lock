@@ -5,3 +5,7 @@ revision = 1
 name = "email_triage_env"
 version = "0.1.0"
 source = { virtual = "." }
+
+[[package]]
+name = "openenv-core"
+version = "0.2.2"
