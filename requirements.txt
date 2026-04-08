@@ -3,5 +3,6 @@ uvicorn
 openai
 pydantic
 requests
+openenv
 
  
