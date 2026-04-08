@@ -1,72 +1,41 @@
-name: email-triage-env
-version: "1.0.0"
+version: "1.0"
+env_id: "email_triage_env"
 description: >
-  An RL environment where an AI agent learns to triage emails —
-  classifying, prioritizing, and routing them with increasing difficulty.
+  A real-world RL environment for AI-driven email management including 
+  classification, prioritization, and routing.
 
-environment:
-  class: email_triage_env.server.email_triage_env_environment.EmailTriageEnvironment
-  max_steps: 5
+entry_point: "email_triage_env.server.email_triage_env_environment:EmailTriageEnvironment"
 
+# Define tasks for the automated grader
 tasks:
-  - id: easy
-    name: Email Classification
-    description: Classify a single email as spam, important, or normal.
-    difficulty: easy
-    reward_range: [0.0, 1.0]
+  - id: "easy_classify"
+    name: "Email Classification"
+    difficulty: "easy"
+  - id: "medium_priority"
+    name: "Email Prioritization"
+    difficulty: "medium"
+  - id: "hard_triage"
+    name: "Full Email Triage"
+    difficulty: "hard"
 
-  - id: medium
-    name: Email Prioritization
-    description: Order emails by priority — most urgent first.
-    difficulty: medium
-    reward_range: [0.0, 1.0]
-
-  - id: hard
-    name: Full Email Triage
-    description: Classify email AND decide action (reply or archive).
-    difficulty: hard
-    reward_range: [0.0, 1.0]
-
+# The validator uses these to check your API compliance
 observation_space:
-  type: object
-  fields:
+  type: "object"
+  properties:
     emails:
-      type: array
+      type: "array"
       items:
-        id: integer
-        subject: string
-        body: string
-        sender: string
-    step_count: integer
-    done: boolean
-    reward: float
+        type: "object"
+        properties:
+          id: {type: "integer"}
+          subject: {type: "string"}
+          body: {type: "string"}
+    step_count: {type: "integer"}
+    done: {type: "boolean"}
 
 action_space:
-  type: object
-  fields:
-    type:
-      type: string
-      enum: [classify, prioritize, triage]
-    email_id: integer
-    label:
-      type: string
-      enum: [spam, important, normal]
-      required: false
-    order:
-      type: array
-      items: integer
-      required: false
-    action:
-      type: string
-      enum: [reply, archive]
-      required: false
-
-api:
-  reset: POST /reset
-  step: POST /step
-  state: GET /state
-
-inference:
-  script: inference.py
-  model: Qwen/Qwen2.5-72B-Instruct
-  api_base: https://router.huggingface.co/v1
+  type: "object"
+  properties:
+    type: {type: "string", enum: ["classify", "prioritize", "triage"]}
+    email_id: {type: "integer"}
+    label: {type: "string", enum: ["spam", "important", "normal"]}
