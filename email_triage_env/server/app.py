@@ -2,6 +2,9 @@ import os
 import sys
 from openenv.core.env_server.http_server import create_app
 
+# Ensure local modules are findable
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+
 try:
     from models import EmailTriageAction, EmailTriageObservation
     from server.email_triage_env_environment import EmailTriageEnvironment
