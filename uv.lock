@@ -2,6 +2,6 @@ version = 1
 revision = 1
 
 [[package]]
-name = "email_agent"
+name = "email_triage_env"
 version = "0.1.0"
 source = { virtual = "." }
