@@ -23,11 +23,10 @@ dev = [
 ]
 
 [project.scripts]
-# This line fixes the "Missing [project.scripts] server entry point" error
+# This maps the 'server' command to the main function in your app.py
 server = "server.app:main"
 
 [tool.setuptools]
 include-package-data = true
-# This tells the build system to look for the code in your root and server folders
 packages = ["server", "models"]
 package-dir = {"" = "."}
