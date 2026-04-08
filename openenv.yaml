@@ -1,9 +1,8 @@
 version: "1.0"
 env_id: "email_triage_env"
-description: >
-  A real-world RL environment for AI-driven email management including 
-  classification, prioritization, and routing.
+description: "AI-driven email management environment."
 
+# Path: folder.subfolder.filename:ClassName
 entry_point: "email_triage_env.server.email_triage_env_environment:EmailTriageEnvironment"
 
 tasks:
