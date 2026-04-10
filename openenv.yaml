@@ -4,8 +4,11 @@ description: >
   An RL environment for AI-driven email management including 
   classification, prioritization, and routing.
 
-# Format: folder.subfolder.filename:ClassName
 entry_point: "email_triage_env.server.email_triage_env_environment:EmailTriageEnvironment"
+
+modes:
+  - http
+  - websocket
 
 tasks:
   - id: "easy"
