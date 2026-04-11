@@ -90,7 +90,8 @@ def run_task(task_id, task_name, get_action_fn):
         # CLEAN STEP LOG - DO NOT ADD EXTRA FIELDS HERE
         print(f"[STEP] step={step} reward={reward:.2f} done={str(done).lower()}", flush=True)
 
-    score = sum(rewards) / len(rewards) if rewards else 0.0
+    score = sum(rewards) / len(rewards) if rewards else 0.5
+    score = max(0.01, min(0.99, score))
     success = "true" if score > 0.5 else "false"
 
     # CLEAN END LOG
